@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RDT - Rassemblement des Démocrates Tshisekedistes</title>
+    <link rel="icon" type="image/x-icon" href="../icon/Logo_EDRDC.ico">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#021373',
+                        secondary: '#020f59',
+                        dark: '#010b40',
+                        light: '#010626',
+                        accent: '#8491d9'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body { font-family: 'Montserrat', sans-serif; }
+        
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            background: linear-gradient(135deg, rgba(2, 19, 115, 0.9) 0%, rgba(2, 15, 89, 0.7) 100%),
+                         url('../images/d.jpg') center/cover no-repeat;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, rgba(1, 6, 38, 0.2), transparent);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Navbar */
+        .nav-link {
+            position: relative;
+            color: #010b40;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background-color: #021373;
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover, .nav-link:focus {
+            color: #021373 !important;
+        }
+        
+        .nav-link:hover::after, .nav-link:focus::after {
+            width: 100%;
+        }
+        
+        .active-nav {
+            color: #021373 !important;
+            font-weight: 700;
+        }
+        
+        .active-nav::after {
+            width: 100%;
+        }
+        
+        /* Cards */
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(2, 19, 115, 0.3);
+            cursor: pointer;
+        }
+        
+        .news-card, .service-card {
+            opacity: 0;
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(2, 19, 115, 0.3);
+            cursor: pointer;
+        }
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+        
+        .btn-primary:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-secondary {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(2, 15, 89, 0.3);
+            cursor: pointer;
+        }
+        
+        /* Partner Animation */
+        @keyframes partnerFadeInUp {
+            0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+            60% { opacity: 1; transform: translateY(-8px) scale(1.04); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        .partner-logo {
+            filter: grayscale(1) opacity(0.8);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+        }
+        
+        .partner-logo.animated {
+            animation: partnerFadeInUp 0.7s cubic-bezier(.4,1.4,.6,1) forwards;
+        }
+        
+        .partner-logo:hover {
+            filter: grayscale(0) opacity(1);
+            transform: scale(1.08) translateY(-4px);
+            box-shadow: 0 8px 24px -8px rgba(2, 19, 115, 0.3);
+        }
+        
+        /* WebTV Section */
+        .video-card:hover iframe {
+            transform: scale(1.02);
+        }
+        
+        .video-card iframe {
+            transition: transform 0.3s ease;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #021373;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #020f59;
+        }
+        
+        /* Modal Newsletter */
+        #newsletter-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(1, 6, 38, 0.5);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        #newsletter-modal.active {
+            display: flex;
+        }
+        
+        #newsletter-modal .modal-content {
+            background: #021373;
+            color: #fff;
+            border-radius: 18px;
+            max-width: 480px;
+            width: 95vw;
+            padding: 2.5rem 2rem 2rem 2rem;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(1, 6, 38, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            animation: slideUp 0.4s ease;
+        }
+        
+        #newsletter-modal .close-modal {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            font-size: 1.5rem;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        #newsletter-modal .close-modal:hover {
+            color: #8491d9;
+        }
+        
+        #newsletter-modal .modal-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+        
+        #newsletter-modal .modal-header .icon-newsletter {
+            font-size: 3.5rem;
+            margin-right: 0.5rem;
+            color: #fff;
+        }
+        
+        #newsletter-modal .modal-header .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        #newsletter-modal .modal-header .modal-subtitle {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 0.3rem;
+        }
+        
+        #newsletter-modal form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        #newsletter-modal input[type="email"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            color: #222;
+        }
+        
+        #newsletter-modal label {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            color: #fff;
+        }
+        
+        #newsletter-modal input[type="checkbox"] {
+            accent-color: #8491d9;
+            width: 1.1rem;
+            height: 1.1rem;
+            margin-top: 0.2rem;
+        }
+        
+        #newsletter-modal button[type="submit"] {
+            background: #8491d9;
+            color: #021373;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 999px;
+            padding: 0.9rem 0;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        
+        #newsletter-modal button[type="submit"]:hover {
+            background: #020f59;
+            color: #fff;
+        }
+        
+        /* Glowing effect */
+        .glow-effect {
+            position: relative;
+        }
+        
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, #021373, #020f59, #021373);
+            background-size: 200% 200%;
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.7;
+            animation: glow 6s linear infinite;
+            border-radius: inherit;
+        }
+        
+        @keyframes glow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Marquee styles */
+        .partners-marquee-container {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+            width: 100%;
+        }
+        
+        .partners-marquee {
+            display: flex;
+            animation: marquee 30s linear infinite;
+            width: max-content;
+        }
+        
+        .partner-logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .partner-logo {
+            max-height: 3rem;
+            width: auto;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        @media (max-width: 768px) {
+            .partners-marquee {
+                animation-duration: 20s;
+            }
+            
+            .partner-logo {
+                max-height: 2rem;
+            }
+        }
+
+        /* Styles pour la section partenaires */
+        .partners-marquee-container {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+        }
+
+        .partners-track {
+            animation: slidePartners 20s linear infinite;
+            will-change: transform;
+        }
+
+        .partner-item {
+            flex-shrink: 0;
+            transform: translateY(0);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: grayscale(100%);
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        .partner-item:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: translateY(-8px) scale(1.05);
+        }
+
+        .partners-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes slidePartners {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-100% - 3rem));
+            }
+        }
+
+        /* Animation d'entrée pour chaque partenaire */
+        .partner-item {
+            animation: fadeInScale 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+        }
+
+        /* Appliquer un délai différent pour chaque logo */
+        .partner-item:nth-child(1) { animation-delay: 0.1s; }
+        .partner-item:nth-child(2) { animation-delay: 0.2s; }
+        .partner-item:nth-child(3) { animation-delay: 0.3s; }
+        .partner-item:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body class="bg-[#f8f9fa] antialiased">
+    <!-- Header -->
+    <header class="bg-white shadow-sm fixed w-full z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <!-- Mobile menu button and left menu -->
+                <div class="flex items-center">
+                    <!-- Mobile menu button -->
+                    <button class="md:hidden w-10 h-10 flex items-center justify-center text-[#010b40] mr-2 focus:outline-none" id="mobile-menu-btn">
+                        <i class="ri-menu-line ri-lg" id="mobile-menu-icon"></i>
+                    </button>
+                    <!-- Desktop menu -->
+                    <nav class="hidden md:flex items-center space-x-8">
+                        <a href="index.html" class="nav-link active-nav">Accueil</a>
+                        <a href="#" class="nav-link">Qui sommes-nous</a>
+                        <a href="#" class="nav-link">Actualités</a>
+                        <a href="#" class="nav-link">Vos droits</a>
+                        <a href="#" class="nav-link">Nos propositions</a>
+                        <a href="#" class="nav-link">Ils parlent de nous</a>
+                    </nav>
+                </div>
+                <!-- Centered logo -->
+                <div class="flex-1 flex justify-center">
+                    <a href="index.html" class="flex items-center">
+                        <img src="../img/logo_officiel.png" alt="Logo RDT" class="h-28 md:h-32 transition-transform hover:scale-105">
+                    </a>
+                </div>
+                <!-- Right buttons -->
+                <div class="flex items-center space-x-4">
+                    
+                    <a href="adhesion.html" class="btn-primary bg-primary text-white px-4 py-2 rounded-button font-semibold whitespace-nowrap hover:bg-[#020f59]">
+                        Adhérer
+                    </a>
+                </div>
+            </div>
+            <!-- Mobile dropdown menu -->
+            <nav id="mobile-nav" class="md:hidden hidden absolute top-full left-0 w-full bg-white shadow-lg p-6 z-50 transform origin-top transition-all duration-300 ease-out">
+                <div class="flex flex-col space-y-4">
+                    <a href="index.html" class="nav-link active-nav">Accueil</a>
+                    <a href="#" class="nav-link">Qui sommes-nous</a>
+                    <a href="#" class="nav-link">Actualités</a>
+                    <a href="#" class="nav-link">Vos droits</a>
+                    <a href="#" class="nav-link">Nos propositions</a>
+                    <a href="#" class="nav-link">Ils parlent de nous</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <script id="navigation-script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-btn');
+            const mobileNav = document.getElementById('mobile-nav');
+            const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+            
+            if(mobileMenuButton && mobileNav && mobileMenuIcon) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileNav.classList.toggle('hidden');
+                    mobileNav.classList.toggle('scale-y-100');
+                    mobileNav.classList.toggle('scale-y-95');
+                    mobileNav.classList.toggle('opacity-100');
+                    mobileNav.classList.toggle('opacity-0');
+                    // Toggle menu icon
+                    if (mobileNav.classList.contains('hidden')) {
+                        mobileMenuIcon.classList.remove('ri-close-line');
+                        mobileMenuIcon.classList.add('ri-menu-line');
+                    } else {
+                        mobileMenuIcon.classList.remove('ri-menu-line');
+                        mobileMenuIcon.classList.add('ri-close-line');
+                    }
+                });
+                
+                // Close mobile menu on window resize
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth >= 768) {
+                        mobileNav.classList.add('hidden');
+                        mobileNav.classList.remove('scale-y-100');
+                        mobileNav.classList.add('scale-y-95');
+                        mobileNav.classList.remove('opacity-100');
+                        mobileNav.classList.add('opacity-0');
+                        mobileMenuIcon.classList.remove('ri-close-line');
+                        mobileMenuIcon.classList.add('ri-menu-line');
+                    }
+                });
+            }
+            
+            // Active menu state
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
+                    link.classList.add('active-nav');
+                } else {
+                    link.classList.remove('active-nav');
+                }
+            });
+        });
+    </script>
+
+    <!-- Hero Section -->
+    <section class="hero-section pt-40 pb-16 w-full">
+        <div class="container mx-auto px-4 w-full">
+            <div class="hero-content max-w-2xl animate-slide-up">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                    Ensemble pour défendre <br><span class="text-accent">vos droits</span>
+                </h1>
+                <p class="text-xl text-[#8491d9] mb-8">
+                    Nos valeurs fondamentales pour bâtir l'avenir.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#" class="btn-primary bg-primary text-white px-6 py-3 rounded-button font-semibold whitespace-nowrap hover:shadow-lg hover:bg-[#020f59]">
+                        Découvrir nos actions
+                    </a>
+                    <a href="#" class="btn-secondary bg-transparent border-2 border-white text-white px-6 py-3 rounded-button font-semibold whitespace-nowrap hover:bg-white hover:bg-opacity-10">
+                        Nous contacter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- President's Message -->
+    <div class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/3">
+                    <img src="../img/ZaXf_k8u_400x400.jpg" 
+                         alt="Portrait du Président" 
+                         class="w-full h-auto rounded-lg shadow-lg">
+                </div>
+                <div class="md:w-2/3">
+                    <h2 class="text-3xl font-bold mb-4">Mot du Président</h2>
+                    <p class="text-xl italic mb-6 text-primary">"Chers compatriotes, ensemble nous bâtirons un Congo meilleur."</p>
+                    <p class="text-gray-600 mb-4">En tant que président du Rassemblement des Démocrates Tshisekedistes RDT en sigle, je m'engage à œuvrer sans relâche pour la démocratie, la justice sociale et le développement économique de notre pays.</p>
+                    <p class="text-gray-600 mb-6">Notre mouvement représente l'espoir d'un avenir meilleur pour tous les Congolais, où chaque citoyen pourra s'épanouir dans la paix et la prospérité.</p>
+                    <p class="text-primary font-bold">Sylvain Mutombo Kabinga<br>Président du RDT</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Motto Section -->
+    <div class="bg-primary text-white py-12 animate-on-scroll">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Notre devise</h2>
+            <p class="text-2xl italic">"Unité, Démocratie, Progrès"</p>
+            <p class="mt-6 max-w-3xl mx-auto">Le RDT s'engage pour un Congo uni, démocratique et progressiste où chaque citoyen peut s'épanouir dans la paix et la prospérité.</p>
+        </div>
+    </div>
+
+    <!-- News Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-10">
+                <h2 class="text-3xl font-bold text-primary section-title mb-6 md:mb-0 animate-slide-up">
+                    <span class="text-[#010b40]">Actualités</span> récentes
+                </h2>
+                <a href="#" class="btn-primary bg-primary text-white px-6 py-3 rounded-button font-semibold whitespace-nowrap flex items-center animate-slide-up hover:bg-[#020f59]">
+                    Toutes les actualités <i class="ri-arrow-right-line ml-2"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- News Card 1 -->
+                <div class="news-card bg-white rounded-xl shadow-md overflow-hidden card-hover transition-all duration-300 animate-slide-up">
+                    <div class="h-48 overflow-hidden">
+                        <img src="..//img/slider_4.jpg" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                    </div>
+                    <div class="content p-6">
+                        <div class="flex items-center text-gray-500 text-sm mb-2">
+                            <i class="ri-calendar-line mr-2"></i>
+                            <span class="text-[#020f59] font-medium">28 mai 2025</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary mb-3">RDT présente son plan économique pour la relance</h3>
+                        <p class="text-gray-600 mb-4">Le parti dévoile sa stratégie en 10 points pour relancer l'économie congolaise et créer des emplois..</p>
+                        <a href="#" class="text-primary font-semibold flex items-center hover:text-[#020f59] transition-colors">
+                            Lire la suite <i class="ri-arrow-right-line ml-2 transition-transform hover:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- News Card 2 -->
+                <div class="news-card bg-white rounded-xl shadow-md overflow-hidden card-hover transition-all duration-300 animate-slide-up">
+                    <div class="h-48 overflow-hidden">
+                        <img src="../img/grand_meeting.jpg" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                    </div>
+                    <div class="content p-6">
+                        <div class="flex items-center text-gray-500 text-sm mb-2">
+                            <i class="ri-calendar-line mr-2"></i>
+                            <span class="text-[#020f59] font-medium">22 mai 2025</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary mb-3">Grand meeting à Kinshasa avec 50 000 participants</h3>
+                        <p class="text-gray-600 mb-4">Le RDT a rassemblé une foule record pour son meeting annuel avec des discours inspirants.</p>
+                        <a href="#" class="text-primary font-semibold flex items-center hover:text-[#020f59] transition-colors">
+                            Lire la suite <i class="ri-arrow-right-line ml-2 transition-transform hover:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- News Card 3 -->
+                <div class="news-card bg-white rounded-xl shadow-md overflow-hidden card-hover transition-all duration-300 animate-slup">
+                    <div class="h-48 overflow-hidden">
+                        <img src="../img/2023.jpg" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                    </div>
+                    <div class="content p-6">
+                        <div class="flex items-center text-gray-50 text-sm mb-2">
+                            <i class="ri-calendar-line mr-2"></i>
+                            <span class="text-[#020f59] font-medium">15 mai 2025</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary mb-3">RDC-politique: le RDT se range pour la bataille électorale de 2023.</h3>
+                        <p class="text-gray-600 mb-4"> Il a interpellé le coordonnateur délégué, Laurent NGOLO LOKAKAO, à veuiller sur le bon fonctionnement du rassemblement des démocrates Tshisekedistes ainsi que sur la gestion édifiante et efficace des partis membres du RDT.</p>
+                        <a href="#" class="text-primary font-semibold flex items-center hover:text-[#020f59] transition-colors">
+                            Lire la suite <i class="ri-arrow-right-line ml-2 transition-transform hover:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vos droits Section -->
+    <section class="py-16 bg-[#f0f2f5] mb-16">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center w-full">
+            <div class="relative flex flex-col items-center w-full mb-10">
+                <hr class="w-full border-t border-gray-200 absolute top-1/2 left-0 z-0">
+                <div class="relative z-10 flex flex-col items-center bg-[#f0f2f5] px-6 animate-slide-up">
+                    <div class="flex items-center justify-center mb-2">
+                        <i class="ri-scales-3-line text-4xl text-[#020f59]"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#020f59] section-title mb-2">Vos droits</h2>
+                    <p class="text-[#010b40] text-center max-w-2xl">Être citoyen, c’est bénéficier de droits qui garantissent la liberté, l’égalité et la participation à la vie de la société. Ces droits sont protégés par la loi et les grandes conventions internationales, et s’accompagnent de devoirs envers l’État et la communauté nationale, comme le respect des lois, la participation à la défense nationale et le paiement des impôts</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full px-4 md:px-0 animate-slide-up">
+                <!-- Article 1 -->
+                 <div class="card-hover bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col items-start">
+                    <img src="../img/droits/Droits civiques et politiques.png" alt="Droits civiques et politiques" class="w-full h-48 object-cover mb-4 rounded-lg">
+                    <span class="inline-block bg-[#020f59]/10 text-[#020f59] text-xs font-semibold px-3 py-1 rounded-full mb-2">Droits civiques et politiques</span>
+                    <div class="font-bold text-xl mb-2 text-primary">Droit de vote et d’éligibilité</div>
+                    <div class="text-gray-600 text-sm mb-4">Participer aux élections et se présenter comme candidat</div>
+                    <a href="#" class="mt-auto text-primary text-sm font-semibold hover:text-[#020f59] transition-colors flex items-center">
+                        En savoir plus <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Article 2 -->
+                <div class="card-hover bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col items-start">
+                    <img src="../img/droits/Droits économiques et sociaux.png" alt="Congé payé et maladie" class="w-full h-48 object-cover mb-4 rounded-lg">
+                    <span class="inline-block bg-[#020f59]/10 text-[#020f59] text-xs font-semibold px-3 py-1 rounded-full mb-2">Droits économiques et sociaux</span>
+                    <div class="font-bold text-xl mb-2 text-primary">Droit à l’instruction et à l’éducation</div>
+                    <div class="text-gray-600 text-sm mb-4">Les périodes de maladie ouvrent désormais droit à des congés payés (CP) mais ceux-ci doivent être pris durant un certain délai (15 mois).</div>
+                    <a href="#" class="mt-auto text-primary text-sm font-semibold hover:text-[#020f59] transition-colors flex items-center">
+                        En savoir plus <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Article 3 -->
+                <div class="card-hover bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col items-start">
+                    <img src="..//img/droits/fondamentaux garantis et interdictions.png" alt="Désignation de DS/RSS" class="w-full h-48 object-cover mb-4 rounded-lg">
+                    <span class="inline-block bg-[#020f59]/10 text-[#020f59] text-xs font-semibold px-3 py-1 rounded-full mb-2">Droits fondamentaux garantis et interdictions</span>
+                    <div class="font-bold text-xl mb-2 text-primary">Interdiction de la peine de mort et de la détention arbitraire</div>
+                    <div class="text-gray-600 text-sm mb-4">En RDC, le syndicat doit jouir d'un nombre minimum d'adhérents pour exercer certaines prérogatives.</div>
+                    <a href="#" class="mt-auto text-primary text-sm font-semibold hover:text-[#020f59] transition-colors flex items-center">
+                        En savoir plus <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-10 animate-slide-up">
+                <a href="#" class="btn-secondary bg-[#020f59] text-white px-8 py-3 rounded-button font-semibold flex items-center gap-2 transition-transform hover:scale-105 hover:bg-[#010b40]">
+                    Tous les articles sur vos droits <i class="ri-arrow-right-line ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 animate-slide-up">
+                <h2 class="text-3xl font-bold text-primary mb-4">Nos programmes en bref</h2>
+                <p class="text-[#010b40] max-w-2xl mx-auto">
+                    Des programmes complets pour accompagner le président de la république, le commandant suprême.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="service-card bg-white shadow-sm hover:shadow-md rounded-xl p-8 transition-all duration-300 card-hover animate-slide-up">
+                    <div class="w-16 h-16 bg-[#021373]/10 rounded-xl flex items-center justify-center mb-6 text-primary">
+                        <i class="ri-scales-3-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Assistance juridique</h3>
+                    <p class="text-gray-600 mb-4">
+                        Bénéficiez de conseils personnalisés et d'un accompagnement juridique pour toutes vos questions relatives au droit du travail.
+                    </p>
+                    <a href="#" class="text-primary font-semibold flex items-center hover:text-[#020f59] transition-colors">
+                        En savoir plus <i class="ri-arrow-right-line ml-2 transition-transform hover:translate-x-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Service Card 2 -->
+                <div class="service-card bg-white shadow-sm hover:shadow-md rounded-xl p-8 transition-all duration-300 card-hover animate-slide-up">
+                    <div class="w-16 h-16 bg-[#021373]/10 rounded-xl flex items-center justify-center mb-6 text-primary">
+                        <i class="ri-graduation-cap-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Formation syndicale</h3>
+                    <p class="text-gray-600 mb-4">
+                        Participez à nos formations pour développer vos compétences et mieux comprendre vos droits et responsabilités.
+                    </p>
+                    <a href="#" class="text-primary font-semibold flex items-center hover:text-[#020f59] transition-colors">
+                        En savoir plus <i class="ri-arrow-right-line ml-2 transition-transform hover:translate-x-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Service Card 3 -->
+                <div class="service-card bg-white shadow-sm hover:shadow-md rounded-xl p-8 transition-all duration-300 card-hover animate-slide-up">
+                    <div class="w-16 h-16 bg-[#021373]/10 rounded-xl flex items-center justify-center mb-6 text-primary">
+                        <i class="ri-team-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Représentation collective</h3>
+                    <p class="text-gray-600 mb-4">
+                        Nous défendons vos intérêts lors des négociations avec les employeurs et auprès des instances représentatives.
+                    </p>
+                    <a href="#" class="text-primary font-semibold flex items-center hover:text-[#020f59] transition-colors">
+                        En savoir plus <i class="ri-arrow-right-line ml-2 transition-transform hover:translate-x-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Service Card 4 -->
+                <div class="service-card bg-white shadow-sm hover:shadow-md rounded-xl p-8 transition-all duration-300 card-hover animate-slide-up">
+                    <div class="w-16 h-16 bg-[#021373]/10 rounded-xl flex items-center justify-center mb-6 text-primary">
+                        <i class="ri-file-list-3-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Assistance administrative</h3>
+                    <p class="text-gray-600 mb-4">
+                        Nous vous aidons dans vos démarches administratives liées à votre emploi, votre carrière ou votre retraite.
+                    </p>
+                    <a href="#" class="text-primary font-semibold flex items-center hover:text-[#020f59] transition-colors">
+                        En savoir plus <i class="ri-arrow-right-line ml-2 transition-transform hover:translate-x-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Service Card 5 -->
+                <div class="service-card bg-white shadow-sm hover:shadow-md rounded-xl p-8 transition-all duration-300 card-hover animate-slide-up">
+                    <div class="w-16 h-16 bg-[#021373]/10 rounded-xl flex items-center justify-center mb-6 text-primary">
+                        <i class="ri-discuss-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Médiation professionnelle</h3>
+                    <p class="text-gray-600 mb-4">
+                        Nos médiateurs vous accompagnent pour résoudre les conflits au travail et améliorer les relations professionnelles.
+                    </p>
+                    <a href="#" class="text-primary font-semibold flex items-center hover:text-[#020f59] transition-colors">
+                        En savoir plus <i class="ri-arrow-right-line ml-2 transition-transform hover:translate-x-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Service Card 6 -->
+                <div class="service-card bg-white shadow-sm hover:shadow-md rounded-xl p-8 transition-all duration-300 card-hover animate-slide-up">
+                    <div class="w-16 h-16 bg-[#021373]/10 rounded-xl flex items-center justify-center mb-6 text-primary">
+                        <i class="ri-heart-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">Avantages sociaux</h3>
+                    <p class="text-gray-600 mb-4">
+                        Profitez de nombreux avantages exclusifs réservés à nos adhérents : réductions, aides financières, loisirs.
+                    </p>
+                    <a href="#" class="text-primary font-semibold flex items-center hover:text-[#020f59] transition-colors">
+                        En savoir plus <i class="ri-arrow-right-line ml-2 transition-transform hover:translate-x-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 animate-slide-up">
+                <div class="text-center bg-white/5 p-8 rounded-xl backdrop-blur-sm hover:bg-white/10 transition-all">
+                    <div class="text-5xl font-bold mb-2 text-accent">15 000+</div>
+                    <div class="text-lg font-medium">Adhérents</div>
+                </div>
+                <div class="text-center bg-white/5 p-8 rounded-xl backdrop-blur-sm hover:bg-white/10 transition-all">
+                    <div class="text-5xl font-bold mb-2 text-accent">7</div>
+                    <div class="text-lg font-medium">Années d'expérience</div>
+                </div>
+                <div class="text-center bg-white/5 p-8 rounded-xl backdrop-blur-sm hover:bg-white/10 transition-all">
+                    <div class="text-5xl font-bold mb-2 text-accent">450+</div>
+                    <div class="text-lg font-medium">Fonctions occupées</div>
+                </div>
+                <div class="text-center bg-white/5 p-8 rounded-xl backdrop-blur-sm hover:bg-white/10 transition-all">
+                    <div class="text-5xl font-bold mb-2 text-accent">98%</div>
+                    <div class="text-lg font-medium">Taux de satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-[#f0f2f5] animate-slide-up">
+        <div class="container mx-auto px-4">
+            <div class="bg-gradient-to-r from-primary to-[#020f59] rounded-2xl overflow-hidden shadow-2xl glow-effect">
+                <div class="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between">
+                    <div class="mb-8 md:mb-0 md:mr-8 flex-1">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Rejoignez notre parti politique</h2>
+                        <p class="text-[#8491d9] max-w-xl mb-6 text-lg">
+                            Ensemble, nous sommes plus forts. Adhérez à notre parti politique et bénéficiez de notre expertise et de notre soutien au quotidien.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="adhesion.html" class="btn-primary bg-white text-primary px-6 py-3 rounded-button font-semibold whitespace-nowrap hover:shadow-lg">
+                                Adhérer maintenant
+                            </a>
+                            <a href="#" class="btn-secondary bg-transparent border-2 border-white text-white px-6 py-3 rounded-button font-semibold whitespace-nowrap hover:bg-white hover:bg-opacity-10">
+                                En savoir plus
+                            </a>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 flex justify-center animate-float">
+                        <img src="../img/slider_1.jpg" alt="Personnes travaillant ensemble" class="rounded-xl shadow-2xl w-full max-w-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Bandeau -->
+    <section class="bg-[#020f59] py-6 animate-slide-up">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-white text-lg font-semibold text-center md:text-left">
+                <i class="ri-mail-line mr-2"></i> Actualités, ressources, ne manquez rien. Abonnez-vous à notre newsletter.
+            </div>
+            <button id="newsletter-btn" class="btn-primary bg-white text-[#020f59] px-8 py-3 rounded-button font-semibold flex items-center gap-2 transition-transform hover:scale-105 hover:bg-[#f0f2f5]">
+                <i class="ri-mail-check-line"></i>
+                JE M'ABONNE
+            </button>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90">
+        <div class="relative w-full max-w-4xl aspect-video">
+            <button id="close-video" class="absolute -top-12 right-0 text-white text-4xl z-10">&times;</button>
+            <iframe id="modal-video-iframe" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- WebTV Section -->
+    <section class="py-16 bg-primary text-white rounded-t-[60px] md:rounded-[60px] mt-16 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col items-center">
+                <div class="-mt-16 mb-2 flex flex-col items-center">
+                    <div class="bg-[#010b40] rounded-b-full px-6 py-2 flex items-center justify-center" style="margin-bottom:-24px;">
+                        <i class="ri-film-line text-4xl text-accent"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-8 mb-4 text-center">RDT, la WebTV</h2>
+                    <p class="text-[#8491d9] text-center max-w-2xl">Découvrez nos dernières vidéos et reportages sur nos actions et actualités</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-12">
+                    <!-- Video 1 -->
+                    <div class="video-card bg-white/10 rounded-xl overflow-hidden flex flex-col transition-all hover:bg-white/20 cursor-pointer" 
+                         onclick="openVideoModal('..//vid/RDT Rassemblement des de mocrates TSHISEKEDI plateforme  Me Sylvain Mutombo plusieurs Adhésions.mp4')">
+                        <div class="relative group aspect-video w-full h-48 md:h-56 lg:h-48 overflow-hidden rounded-t-xl">
+                            <div class="w-full h-full bg-black/20 flex items-center justify-center">
+                                <div class="w-16 h-16 bg-[#020f59]/80 rounded-full flex items-center justify-center">
+                                    <i class="ri-play-fill text-2xl"></i>
+                                </div>
+                            </div>
+                            <img src="../img/sr.png" class="absolute inset-0 w-full h-full object-cover" alt="Miniature vidéo">
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="text-xs bg-[#010b40]/80 px-2 py-1 rounded mb-2 w-fit">ÉMISSION SPÉCIALE</div>
+                            <div class="font-bold text-lg mb-2">[Vidéo] Episode 1 : Découvrir la WebTV RDT</div>
+                            <div class="text-[#8491d9] text-sm">Présentation de la WebTV et de ses objectifs pour les adhérents.</div>
+                        </div>
+                    </div>
+                                        
+
+<!-- Video 2 -->
+                    <div class="video-card bg-white/10 rounded-xl overflow-hidden flex flex-col transition-all hover:bg-white/20 cursor-pointer" 
+                         onclick="openVideoModal('..//vid/RDT Rassemblement des de mocrates TSHISEKEDI plateforme  Me Sylvain Mutombo plusieurs Adhésions.mp4')">
+                        <div class="relative group aspect-video w-full h-48 md:h-56 lg:h-48 overflow-hidden rounded-t-xl">
+                            <div class="w-full h-full bg-black/20 flex items-center justify-center">
+                                <div class="w-16 h-16 bg-[#020f59]/80 rounded-full flex items-center justify-center">
+                                    <i class="ri-play-fill text-2xl"></i>
+                                </div>
+                            </div>
+                            <img src="../img/grand_meeting.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Miniature vidéo">
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="text-xs bg-[#010b40]/80 px-2 py-1 rounded mb-2 w-fit">INTERVIEW</div>
+                            <div class="font-bold text-lg mb-2">RDT : Témoignage d'un adhérent</div>
+                            <div class="text-[#8491d9] text-sm">Un adhérent partage son expérience et les avantages de l'organisation.</div>
+                        </div>
+                    </div>
+
+
+
+
+
+                        
+<!-- Video 3 -->
+                    <div class="video-card bg-white/10 rounded-xl overflow-hidden flex flex-col transition-all hover:bg-white/20 cursor-pointer" 
+                         onclick="openVideoModal('..//vid/RDT Rassemblement des de mocrates TSHISEKEDI plateforme  Me Sylvain Mutombo plusieurs Adhésions.mp4')">
+                        <div class="relative group aspect-video w-full h-48 md:h-56 lg:h-48 overflow-hidden rounded-t-xl">
+                            <div class="w-full h-full bg-black/20 flex items-center justify-center">
+                                <div class="w-16 h-16 bg-[#020f59]/80 rounded-full flex items-center justify-center">
+                                    <i class="ri-play-fill text-2xl"></i>
+                                </div>
+                            </div>
+                            <img src="../img/slider_3.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Miniature vidéo">
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="text-xs bg-[#010b40]/80 px-2 py-1 rounded mb-2 w-fit">REPORTAGE</div>
+                            <div class="font-bold text-lg mb-2">RDT : Retour sur un événement marquant</div>
+                            <div class="text-[#8491d9] text-sm">Revivez les moments forts d'un événement organisé par RDT.</div>
+                        </div>
+                    </div>
+
+        </div>
+    </section>
+
+    <!-- Ressources média Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-primary mb-8 animate-slide-up">Connectons-nous<br><span class="text-[#010b40]">Ressources média</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 animate-slide-up">
+                <div class="card-hover bg-white rounded-xl shadow-sm p-6 flex flex-col items-start transition-all hover:shadow-md">
+                    <img src="..//images/ressources/conference-presse-720x480.jpeg" class="rounded-lg mb-4 w-full h-32 object-cover" alt="Communiqués de presse">
+                    <div class="font-bold text-lg text-primary mb-2">Communiqués de presse</div>
+                    <div class="text-gray-600 mb-4">L'espace presse de RDT met à votre disposition l'ensemble de ses communiqués de presse à lire et relayer.</div>
+                    <a href="#" class="btn-primary bg-primary text-white px-4 py-2 rounded-button font-medium transition hover:bg-[#020f59] w-full text-center">
+                        ESPACE PRESSE
+                    </a>
+                </div>
+                
+                <div class="card-hover bg-white rounded-xl shadow-sm p-6 flex flex-col items-start transition-all hover:shadow-md">
+                    <img src="..//images/ressources/passage-media-720x480.jpeg" class="rounded-lg mb-4 w-full h-32 object-cover" alt="Photos & vidéos à télécharger">
+                    <div class="font-bold text-lg text-primary mb-2">Photos & vidéos à télécharger</div>
+                    <div class="text-gray-600 mb-4">L'espace photothèque de RDT propose un ensemble d'images & vidéos à télécharger directement depuis le site.</div>
+                    <a href="#" class="btn-primary bg-primary text-white px-4 py-2 rounded-button font-medium transition hover:bg-[#020f59] w-full text-center">
+                        VOIR LA PHOTOTHÈQUE
+                    </a>
+                </div>
+                
+                <div class="card-hover bg-white rounded-xl shadow-sm p-6 flex flex-col items-start transition-all hover:shadow-md">
+                    <img src="..//images/Passages médias.jpg" class="rounded-lg mb-4 w-full h-32 object-cover" alt="Passages médias">
+                    <div class="font-bold text-lg text-primary mb-2">Passages médias</div>
+                    <div class="text-gray-600 mb-4">Retrouvez l'ensemble des passages médias de nos dirigeants à écouter ou visionner pour ne manquer aucune sortie.</div>
+                    <a href="#" class="btn-primary bg-primary text-white px-4 py-2 rounded-button font-medium transition hover:bg-[#020f59] w-full text-center">
+                        VOIR LES PASSAGES
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nos propositions Section -->
+    <section class="py-16 bg-primary text-white rounded-b-[60px] shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="mb-8">
+                <h2 class="text-4xl font-bold mb-2">Nos propositions</h2>
+                <p class="text-lg text-[#8491d9]">Découvrez les propositions qui font de notre parti politique un acteur efficace du dialogue social.</p>
+            </div>
+            
+            <div class="flex items-center gap-4 overflow-x-auto pb-4 scrollbar-hide">
+                <button class="bg-[#020f59] hover:bg-[#010b40] text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl transition shrink-0 focus:outline-none">
+                    <i class="ri-arrow-left-s-line"></i>
+                </button>
+                
+                <div class="flex gap-6 min-w-0">
+                    <div class="card-hover bg-white text-[#010b40] rounded-xl shadow-md min-w-[260px] max-w-xs flex flex-col items-center p-6 transition-all">
+                        <img src="https://dummyimage.com/120x80/cccccc/021373&text=Retraite" class="rounded-lg mb-4 h-20 object-contain" alt="Retraite">
+                        <div class="font-bold text-lg mb-1 text-center">Retraite</div>
+                        <p class="text-gray-600 text-sm text-center">Nos propositions pour une retraite digne après une carrière bien remplie</p>
+                        <a href="#" class="mt-4 text-primary text-sm font-semibold hover:text-[#020f59] transition-colors flex items-center">
+                            En savoir plus <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                                        
+                    <div class="card-hover bg-white text-[#010b40] rounded-xl shadow-md min-w-[260px] max-w-xs flex flex-col items-center p-6 transition-all">
+                        <img src="https://dummyimage.com/120x80/cccccc/021373&text=Fonction+publique" class="rounded-lg mb-4 h-20 object-contain" alt="Fonction publique">
+                        <div class="font-bold text-lg mb-1 text-center">Fonction publique</div>
+                        <p class="text-gray-600 text-sm text-center">Nos propositions pour améliorer les conditions des fonctionnaires</p>
+                        <a href="#" class="mt-4 text-primary text-sm font-semibold hover:text-[#020f59] transition-colors flex items-center">
+                            En savoir plus <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                                        
+                    <div class="card-hover bg-white text-[#010b40] rounded-xl shadow-md min-w-[260px] max-w-xs flex flex-col items-center p-6 transition-all">
+                        <img src="https://dummyimage.com/120x80/cccccc/021373&text=Santé+et+sécurité" class="rounded-lg mb-4 h-20 object-contain" alt="Santé et sécurité au travail">
+                        <div class="font-bold text-lg mb-1 text-center">Santé et sécurité au travail</div>
+                        <p class="text-gray-600 text-sm text-center">Nos propositions pour un environnement de travail sûr et sain</p>
+                        <a href="#" class="mt-4 text-primary text-sm font-semibold hover:text-[#020f59] transition-colors flex items-center">
+                            En savoir plus <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                                        
+                    <div class="card-hover bg-white text-[#010b40] rounded-xl shadow-md min-w-[260px] max-w-xs flex flex-col items-center p-6 transition-all">
+                        <img src="https://dummyimage.com/120x80/cccccc/021373&text=Dépendance" class="rounded-lg mb-4 h-20 object-contain" alt="Dépendance / Autonomie">
+                        <div class="font-bold text-lg mb-1 text-center">Dépendance / Autonomie</div>
+                        <p class="text-gray-600 text-sm text-center">Nos propositions pour accompagner les situations de dépendance</p>
+                        <a href="#" class="mt-4 text-primary text-sm font-semibold hover:text-[#020f59] transition-colors flex items-center">
+                            En savoir plus <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <button class="bg-[#020f59] hover:bg-[#010b40] text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl transition shrink-0 focus:outline-none">
+                    <i class="ri-arrow-right-s-line"></i>
+                </button>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="#" class="btn-secondary bg-white text-primary px-8 py-3 rounded-button font-semibold inline-flex items-center gap-2 transition-transform hover:scale-105 hover:bg-[#f0f2f5]">
+                    DÉCOUVRIR NOS PROPOSITIONS <i class="ri-arrow-right-line ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Partenaires -->
+    <section class="py-16 bg-[#f0f2f5]">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl font-bold text-primary mb-4">Nos alliés</h2>
+                <p class="text-[#010b40] text-lg">Découvrez les entreprises et organisations qui nous font confiance et collaborent avec nous pour construire un avenir plus juste pour tous les travailleurs.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center max-w-5xl mx-auto">
+                <!-- Partenaires individuels avec animation au survol -->
+                <div class="partner-item transform transition-all duration-500 hover:scale-110 filter grayscale hover:grayscale-0">
+                    <img src="../img/logo_officiel.png" alt="Partenaire 1" class="max-h-20 w-auto mx-auto">
+                </div>
+                <div class="partner-item transform transition-all duration-500 hover:scale-110 filter grayscale hover:grayscale-0">
+                    <img src="../img/logo_officiel.png" alt="Partenaire 2" class="max-h-20 w-auto mx-auto">
+                </div>
+                <div class="partner-item transform transition-all duration-500 hover:scale-110 filter grayscale hover:grayscale-0">
+                    <img src="../img/logo_officiel.png" alt="Partenaire 3" class="max-h-20 w-auto mx-auto">
+                </div>
+                <div class="partner-item transform transition-all duration-500 hover:scale-110 filter grayscale hover:grayscale-0">
+                    <img src="../img/logo_officiel.png" alt="Partenaire 4" class="max-h-20 w-auto mx-auto">
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center text-primary hover:text-[#020f59] transition-colors font-medium group">
+                    Devenir alliés
+                    <i class="ri-arrow-right-line ml-2 transform transition-transform group-hover:translate-x-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Téléchargez RDT l'App Section -->
+    <section class="py-16 bg-primary text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="flex-1 mb-8 md:mb-0">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Téléchargez RDT l'App
+                    <br>
+                    <span class="text-xl font-normal text-accent">et profitez de toutes les activités de notre parti !</span>
+                </h2>
+                
+                <div class="flex flex-wrap gap-3 mb-6">
+                    <a href="#" class="bg-black rounded-lg overflow-hidden flex items-center justify-center p-2 transition-transform hover:scale-105">
+                        <img src="../images/icon/disponible-app-store.png" alt="App Store" class="h-12">
+                    </a>
+                    <a href="#" class="bg-black rounded-lg overflow-hidden flex items-center justify-center p-2 transition-transform hover:scale-105">
+                        <img src="../images/icon/disponible-google-play.png" alt="Google Play" class="h-12">
+                    </a>
+                </div>
+                
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="bg-white text-primary rounded-full px-3 py-1 text-xs font-bold shadow">Actualités</span>
+                    <span class="bg-white text-primary rounded-full px-3 py-1 text-xs font-bold shadow">Services</span>
+                    <span class="bg-white text-primary rounded-full px-3 py-1 text-xs font-bold shadow">Nos propositions</span>
+                    <span class="bg-white text-primary rounded-full px-3 py-1 text-xs font-bold shadow">Vos droits</span>
+                    <span class="bg-white text-primary rounded-full px-3 py-1 text-xs font-bold shadow">WebTV</span>
+                    <span class="bg-white text-primary rounded-full px-3 py-1 text-xs font-bold shadow">Documents</span>
+                </div>
+                
+                <div class="flex items-center gap-2 mt-6">
+                    <i class="ri-award-fill text-accent text-xl"></i>
+                    <span class="text-sm">App récompensée pour son ergonomie en 2024</span>
+                </div>
+            </div>
+            
+            <div class="flex-1 flex justify-center animate-float">
+                <img src="../img/droits/logo phone.png" alt="Mockup App" class="rounded-3xl shadow-2xl w-80 md:w-[28rem]">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#010b40] text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <a href="index.html" class="mr-8">
+                        <img src="../images/logo/Logo_EDRDC.png" alt="Logo EDRDC" class="h-24 transition-transform hover:scale-105" style="display:inline;">
+                    </a>
+                    <p class="text-[#8491d9] mb-6">
+                        Notre organisation syndicale s'engage à défendre les droits des travailleurs et à promouvoir un environnement de travail équitable et respectueux.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-[#021373] rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-[#021373] rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                            <i class="ri-twitter-x-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-[#021373] rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                            <i class="ri-linkedin-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-[#021373] rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                            <i class="ri-youtube-fill"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Liens rapides</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-[#8491d9] hover:text-white transition-colors flex items-center gap-2"><i class="ri-arrow-right-line text-sm"></i> Accueil</a></li>
+                        <li><a href="qui-sommes-nous.html" class="text-[#8491d9] hover:text-white transition-colors flex items-center gap-2"><i class="ri-arrow-right-line text-sm"></i> Qui sommes-nous</a></li>
+                        <li><a href="actualites.html" class="text-[#8491d9] hover:text-white transition-colors flex items-center gap-2"><i class="ri-arrow-right-line text-sm"></i> Actualités</a></li>
+                        <li><a href="vos-droits.html" class="text-[#8491d9] hover:text-white transition-colors flex items-center gap-2"><i class="ri-arrow-right-line text-sm"></i> Vos droits</a></li>
+                        <li><a href="nos-propositions.html" class="text-[#8491d9] hover:text-white transition-colors flex items-center gap-2"><i class="ri-arrow-right-line text-sm"></i> Nos propositions</a></li>
+                        
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Services</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-[#8491d9] hover:text-white transition-colors flex items-center gap-2"><i class="ri-arrow-right-line text-sm"></i> Assistance juridique</a></li>
+                        <li><a href="#" class="text-[#8491d9] hover:text-white transition-colors flex items-center gap-2"><i class="ri-arrow-right-line text-sm"></i> Formation syndicale</a></li>
+                        <li><a href="#" class="text-[#8491d9] hover:text-white transition-colors flex items-center gap-2"><i class="ri-arrow-right-line text-sm"></i> Représentation collective</a></li>
+                        <li><a href="#" class="text-[#8491d9] hover:text-white transition-colors flex items-center gap-2"><i class="ri-arrow-right-line text-sm"></i> Assistance administrative</a></li>
+                        <li><a href="#" class="text-[#8491d9] hover:text-white transition-colors flex items-center gap-2"><i class="ri-arrow-right-line text-sm"></i> Médiation professionnelle</a></li>
+                        <li><a href="#" class="text-[#8491d9] hover:text-white transition-colors flex items-center gap-2"><i class="ri-arrow-right-line text-sm"></i> Avantages sociaux</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Contact</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="ri-map-pin-line mr-3 mt-1 text-accent"></i>
+                            <span class="text-[#8491d9] hover:text-white transition-colors cursor-pointer">Avenue Sendwe<br>75011 Kinshasa, RDC</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-phone-line mr-3 text-accent"></i>
+                            <a href="tel:+243123456789" class="text-[#8491d9] hover:text-white transition-colors">+243 12 34 56 78 9</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-mail-line mr-3 text-accent"></i>
+                            <a href="mailto:contact@rdt.org" class="text-[#8491d9] hover:text-white transition-colors">contact@rdt.org</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-time-line mr-3 text-accent"></i>
+                            <span class="text-[#8491d9]">Lun-Ven: 9h-18h</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-[#021373] pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-[#8491d9] text-sm mb-4 md:mb-0">
+                        © 2025 RDT - Rassemblement des Démocrates Tshisekedistes. Tous droits réservés.
+                    </p>
+                    <div class="flex flex-wrap gap-4 md:gap-6">
+                        <a href="#" class="text-[#8491d9] hover:text-white text-sm transition-colors">Mentions légales</a>
+                        <a href="#" class="text-[#8491d9] hover:text-white text-sm transition-colors">Politique de confidentialité</a>
+                        <a href="#" class="text-[#8491d9] hover:text-white text-sm transition-colors">Conditions d'utilisation</a>
+                        <a href="#" class="text-[#8491d9] hover:text-white text-sm transition-colors">Plan du site</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Animation script -->
+    <script id="animation-script">
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 100,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Animate elements on scroll
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.news-card, .service-card, .animate-slide-up');
+                elements.forEach((element, index) => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        setTimeout(() => {
+                            element.style.opacity = '1';
+                            element.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            };
+
+            // Set initial state for animation
+            const animatedElements = document.querySelectorAll('.news-card, .service-card, .animate-slide-up');
+            animatedElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+
+            // Run on load and scroll
+            animateOnScroll();
+            window.addEventListener('scroll', animateOnScroll);
+
+            // Animate partner logos
+            const logos = document.querySelectorAll('.partner-card');
+            logos.forEach((logo, i) => {
+                setTimeout(() => {
+                    logo.style.opacity = '1';
+                    logo.style.transform = 'translateY(0)';
+                }, 200 + i * 120);
+            });
+        });
+    </script>
+
+    <!-- Modal Newsletter -->
+    <div id="newsletter-modal">
+        <div class="modal-content animate-slide-up">
+            <button class="close-modal" aria-label="Fermer le formulaire">&times;</button>
+            <div class="modal-header">
+                <div>
+                    <i class="ri-mail-open-line icon-newsletter"></i>
+                </div>
+                <div>
+                    <div class="modal-title">Actualités, ressources, ne manquez rien...</div>
+                    <div class="modal-subtitle">Abonnez-vous à la newsletter !</div>
+                </div>
+            </div>
+            <form autocomplete="off">
+                <input type="email" placeholder="Votre adresse e-mail" required class="focus:ring-2 focus:ring-accent focus:border-accent">
+                <label>
+                    <input type="checkbox" required>
+                    J'accepte de recevoir la newsletter RDT : actualités, activité de l'application, contenus pédagogiques
+                </label>
+                <button type="submit" class="btn-primary hover:bg-[#020f59] hover:text-white">
+                    JE M'INSCRIS
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Video modal functions
+        function openVideoModal(videoUrl) {
+            const modal = document.getElementById('video-modal');
+            const iframe = document.getElementById('modal-video-iframe');
+            iframe.src = videoUrl;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('video-modal');
+            const iframe = document.getElementById('modal-video-iframe');
+            iframe.src = '';
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Setup video modal events
+        document.getElementById('close-video')?.addEventListener('click', closeVideoModal);
+        document.getElementById('video-modal')?.addEventListener('click', function(e) {
+            if(e.target === this) closeVideoModal();
+        });
+
+        // Newsletter modal
+        const newsletterBtn = document.querySelector('.bg-white.text-[#020f59]');
+        const newsletterModal = document.getElementById('newsletter-modal');
+        const closeModalBtn = document.querySelector('#newsletter-modal .close-modal');
+
+        if(newsletterBtn && newsletterModal && closeModalBtn) {
+            newsletterBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                newsletterModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeModalBtn.addEventListener('click', function() {
+                newsletterModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close with Escape key or click outside
+            window.addEventListener('keydown', function(e) {
+                if(e.key === 'Escape') {
+                    newsletterModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            newsletterModal.addEventListener('click', function(e) {
+                if(e.target === newsletterModal) {
+                    newsletterModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // Marquee animation control
+        const marquee = document.querySelector('.partners-marquee');
+        const container = document.querySelector('.partners-marquee-container');
+        
+        // Clone the logos for infinite scrolling effect
+        const logos = marquee.innerHTML;
+               marquee.innerHTML = logos + logos;
+        
+        // Pause animation when not in viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    marquee.style.animationPlayState = 'running';
+                } else {
+                    marquee.style.animationPlayState = 'paused';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        observer.observe(container);
+        
+        // Pause on hover (desktop only)
+        if (window.innerWidth >= 768) {
+            container.addEventListener('mouseenter', () => {
+                marquee.style.animationPlayState = 'paused';
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                marquee.style.animationPlayState = 'running';
+            });
+        }
+    </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const newsletterBtn = document.getElementById('newsletter-btn');
+        const newsletterModal = document.getElementById('newsletter-modal');
+        const closeModalBtn = document.querySelector('.close-modal');
+        
+        if(newsletterBtn && newsletterModal && closeModalBtn) {
+            // Ouvrir la modale
+            newsletterBtn.addEventListener('click', function() {
+                newsletterModal.classList.add('active');
+            });
+            
+            // Fermer la modale
+            closeModalBtn.addEventListener('click', function() {
+                newsletterModal.classList.remove('active');
+            });
+            
+            // Fermer en cliquant en dehors
+            newsletterModal.addEventListener('click', function(e) {
+                if(e.target === newsletterModal) {
+                    newsletterModal.classList.remove('active');
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

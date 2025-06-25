@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Adhésion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .form-section {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .required-field::after {
+            content: "*";
+            color: red;
+            margin-left: 4px;
+        }
+        
+        .photo-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #3b82f6;
+            display: none;
+        }
+        
+        .shake {
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl">
+            <!-- Header -->
+            <div class="bg-blue-600 text-white py-6 px-8">
+                <h1 class="text-3xl font-bold animate-fade-in">Formulaire d'Adhésion</h1>
+                <p class="mt-2 opacity-90">Veuillez remplir tous les champs obligatoires</p>
+                
+                <div class="w-full bg-blue-400 rounded-full h-2.5 mt-4">
+                    <div id="progressBar" class="bg-white h-2.5 rounded-full" style="width: 50%"></div>
+                </div>
+                <div class="flex justify-between text-sm mt-1">
+                    <span>Étape 1/2</span>
+                    <span id="stepText">Informations de base</span>
+                </div>
+            </div>
+            
+            <!-- Form -->
+            <form id="adhesionForm" class="p-8 space-y-6">
+                <!-- Section 1: Informations personnelles -->
+                <div id="section1" class="form-section animate-fade-in" style="animation-delay: 0.1s">
+                    <h2 class="text-xl font-semibold text-blue-700 border-b pb-2 mb-4">Informations Personnelles</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- ID Number -->
+                        <div>
+                            <label for="idNumber" class="block text-sm font-medium text-gray-700 required-field">Numéro ID</label>
+                            <input type="text" id="idNumber" name="idNumber" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border bg-gray-100" readonly required>
+                        </div>
+                        
+                        <!-- Photo -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 required-field">Photo</label>
+                            <div class="mt-1 flex items-center space-x-4">
+                                <div class="relative">
+                                    <img id="photoPreview" class="photo-preview" alt="Photo preview"/>
+                                    <label for="photo" class="cursor-pointer bg-blue-100 text-blue-700 px-4 py-2 rounded-md hover:bg-blue-200 transition">
+                                        <i class="fas fa-camera mr-2"></i>Choisir
+                                    </label>
+                                    <input type="file" id="photo" name="photo" accept="image/*" class="hidden" required>
+                                </div>
+                                <span id="photoError" class="text-red-500 text-sm hidden">Veuillez sélectionner une photo</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Sexe -->
+                        <div>
+                            <label for="gender" class="block text-sm font-medium text-gray-700 required-field">Sexe</label>
+                            <select id="gender" name="gender" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                                <option value="">Sélectionner</option>
+                                <option value="Masculin">Masculin</option>
+                                <option value="Féminin">Féminin</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Nom complet -->
+                        <div>
+                            <label for="fullName" class="block text-sm font-medium text-gray-700 required-field">Nom complet</label>
+                            <input type="text" id="fullName" name="fullName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                        </div>
+                        
+                        <!-- Etat civil -->
+                        <div>
+                            <label for="civilStatus" class="block text-sm font-medium text-gray-700 required-field">Etat-civil</label>
+                            <select id="civilStatus" name="civilStatus" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                                <option value="">Sélectionner</option>
+                                <option value="Marié(e)">Marié(e)</option>
+                                <option value="Célibataire">Célibataire</option>
+                                <option value="Veuve">Veuve</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Occupation -->
+                        <div>
+                            <label for="occupation" class="block text-sm font-medium text-gray-700 required-field">Occupation actuelle</label>
+                            <input type="text" id="occupation" name="occupation" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Section 2: Contact et localisation -->
+                <div id="section2" class="form-section animate-fade-in" style="animation-delay: 0.2s">
+                    <h2 class="text-xl font-semibold text-blue-700 border-b pb-2 mb-4">Contact et Localisation</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Adresse -->
+                        <div class="md:col-span-2">
+                            <label for="address" class="block text-sm font-medium text-gray-700 required-field">Adresse</label>
+                            <textarea id="address" name="address" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required></textarea>
+                        </div>
+                        
+                        <!-- Fonction -->
+                        <div>
+                            <label for="function" class="block text-sm font-medium text-gray-700 required-field">Fonction</label>
+                            <input type="text" id="function" name="function" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                        </div>
+                        
+                        <!-- Telephone -->
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 required-field">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                        </div>
+                        
+                        <!-- Province actuelle -->
+                        <div>
+                            <label for="currentProvince" class="block text-sm font-medium text-gray-700 required-field">Province</label>
+                            <select id="currentProvince" name="currentProvince" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                                <option value="">Sélectionner</option>
+                                <option value="Kinshasa">Kinshasa</option>
+                                <option value="Kongo-Central">Kongo-Central</option>
+                                <option value="Kwango">Kwango</option>
+                                <option value="Kwilu">Kwilu</option>
+                                <option value="Mai-Ndombe">Mai-Ndombe</option>
+                                <option value="Kasai">Kasai</option>
+                                <option value="Kasai-Central">Kasai-Central</option>
+                                <option value="Kasai-Oriental">Kasai-Oriental</option>
+                                <option value="Lomami">Lomami</option>
+                                <option value="Sankuru">Sankuru</option>
+                                <option value="Maniema">Maniema</option>
+                                <option value="Sud-Kivu">Sud-Kivu</option>
+                                <option value="Nord-Kivu">Nord-Kivu</option>
+                                <option value="Ituri">Ituri</option>
+                                <option value="Haut-Uele">Haut-Uele</option>
+                                <option value="Bas-Uele">Bas-Uele</option>
+                                <option value="Tshopo">Tshopo</option>
+                                <option value="Haut-Lomami">Haut-Lomami</option>
+                                <option value="Lualaba">Lualaba</option>
+                                <option value="Haut-Katanga">Haut-Katanga</option>
+                                <option value="Tanganyika">Tanganyika</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Section 3: Organisation -->
+                <div id="section3" class="form-section animate-fade-in" style="animation-delay: 0.3s">
+                    <h2 class="text-xl font-semibold text-blue-700 border-b pb-2 mb-4">Organisation</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Fédération -->
+                        <div>
+                            <label for="federation" class="block text-sm font-medium text-gray-700 required-field">Fédération</label>
+                            <input type="text" id="federation" name="federation" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                        </div>
+                        
+                        <!-- Section -->
+                        <div>
+                            <label for="section" class="block text-sm font-medium text-gray-700 required-field">Section</label>
+                            <input type="text" id="section" name="section" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                        </div>
+                        
+                        <!-- Sous-section -->
+                        <div>
+                            <label for="subSection" class="block text-sm font-medium text-gray-700 required-field">Sous-section</label>
+                            <input type="text" id="subSection" name="subSection" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                        </div>
+                        
+                        <!-- Groupement -->
+                        <div>
+                            <label for="grouping" class="block text-sm font-medium text-gray-700 required-field">Groupement</label>
+                            <input type="text" id="grouping" name="grouping" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                        </div>
+                        
+                        <!-- Cellule ou village -->
+                        <div class="md:col-span-2">
+                            <label for="cellOrVillage" class="block text-sm font-medium text-gray-700 required-field">Cellule ou village</label>
+                            <input type="text" id="cellOrVillage" name="cellOrVillage" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Section 4: Origine et paiement -->
+                <div id="section4" class="form-section animate-fade-in" style="animation-delay: 0.4s">
+                    <h2 class="text-xl font-semibold text-blue-700 border-b pb-2 mb-4">Origine</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Province d'origine -->
+                        <div>
+                            <label for="originProvince" class="block text-sm font-medium text-gray-700 required-field">Province d'origine</label>
+                            <select id="originProvince" name="originProvince" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                                <option value="">Sélectionner</option>
+                                <option value="Kinshasa">Kinshasa</option>
+                                <option value="Kongo-Central">Kongo-Central</option>
+                                <option value="Kwango">Kwango</option>
+                                <option value="Kwilu">Kwilu</option>
+                                <option value="Mai-Ndombe">Mai-Ndombe</option>
+                                <option value="Kasai">Kasai</option>
+                                <option value="Kasai-Central">Kasai-Central</option>
+                                <option value="Kasai-Oriental">Kasai-Oriental</option>
+                                <option value="Lomami">Lomami</option>
+                                <option value="Sankuru">Sankuru</option>
+                                <option value="Maniema">Maniema</option>
+                                <option value="Sud-Kivu">Sud-Kivu</option>
+                                <option value="Nord-Kivu">Nord-Kivu</option>
+                                <option value="Ituri">Ituri</option>
+                                <option value="Haut-Uele">Haut-Uele</option>
+                                <option value="Bas-Uele">Bas-Uele</option>
+                                <option value="Tshopo">Tshopo</option>
+                                <option value="Haut-Lomami">Haut-Lomami</option>
+                                <option value="Lualaba">Lualaba</option>
+                                <option value="Haut-Katanga">Haut-Katanga</option>
+                                <option value="Tanganyika">Tanganyika</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Territoire ou Commune -->
+                        <div>
+                            <label for="territoryOrCommune" class="block text-sm font-medium text-gray-700 required-field">Territoire ou Commune</label>
+                            <input type="text" id="territoryOrCommune" name="territoryOrCommune" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                        </div>
+                        
+                        <!-- Qualité -->
+                        <div>
+                            <label for="quality" class="block text-sm font-medium text-gray-700 required-field">Qualité</label>
+                            <input type="text" id="quality" name="quality" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                        </div>
+                        
+                        <!-- Date délivrance -->
+                        <div>
+                            <label for="deliveryDate" class="block text-sm font-medium text-gray-700 required-field">Date délivrance</label>
+                            <input type="date" id="deliveryDate" name="deliveryDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border" required>
+                            <div id="deliveryDateError" class="text-red-500 text-sm mt-1 hidden">La date doit être aujourd'hui</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Buttons -->
+                <div class="flex flex-col sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-4 pt-6">
+                    <button type="button" id="prevBtn" class="hidden bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition">
+                        <i class="fas fa-arrow-left mr-2"></i>Précédent
+                    </button>
+                    <button type="button" id="nextBtn" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition ml-auto">
+                        Suivant<i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    <button type="submit" id="submitBtn" class="hidden bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition">
+                        <i class="fas fa-check-circle mr-2"></i>Adhérer
+                    </button>
+                    <button type="button" id="printBtn" class="hidden bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 transition">
+                        <i class="fas fa-download mr-2"></i>Télécharger PDF
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate random ID number (format: YYYYMMDD-XXXXX)
+            const now = new Date();
+            const datePart = now.getFullYear().toString() + 
+                           (now.getMonth() + 1).toString().padStart(2, '0') + 
+                           now.getDate().toString().padStart(2, '0');
+            const randomPart = Math.floor(10000 + Math.random() * 90000);
+            document.getElementById('idNumber').value = `${datePart}-${randomPart}`;
+            
+            // Show first section
+            document.querySelectorAll('.form-section')[0].style.opacity = '1';
+            
+            // Photo preview
+            const photoInput = document.getElementById('photo');
+            const photoPreview = document.getElementById('photoPreview');
+            
+            photoInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(event) {
+                        photoPreview.src = event.target.result;
+                        photoPreview.style.display = 'block';
+                        document.getElementById('photoError').classList.add('hidden');
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Form navigation
+            const sections = document.querySelectorAll('.form-section');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const printBtn = document.getElementById('printBtn');
+            const progressBar = document.getElementById('progressBar');
+            const stepText = document.getElementById('stepText');
+            let currentSection = 0;
+            
+            // Show section
+            function showSection(index) {
+                // Group sections into 2 steps
+                const step1Sections = [0, 1]; // Sections 0 et 1 = Étape 1
+                const step2Sections = [2, 3]; // Sections 2 et 3 = Étape 2
+                
+                // Show/hide sections based on step
+                sections.forEach((section, i) => {
+                    const inCurrentStep = 
+                        (step1Sections.includes(index) && step1Sections.includes(i)) ||
+                        (step2Sections.includes(index) && step2Sections.includes(i));
+                    section.style.opacity = inCurrentStep ? '1' : '0';
+                });
+                
+                // Update progress bar and step text
+                if (step1Sections.includes(index)) {
+                    progressBar.style.width = '50%';
+                    stepText.textContent = 'Informations de base';
+                } else {
+                    progressBar.style.width = '100%';
+                    stepText.textContent = 'Détails organisation';
+                }
+                
+                // Update buttons
+                prevBtn.classList.toggle('hidden', step1Sections.includes(index) && index === 0);
+                nextBtn.classList.toggle('hidden', step2Sections.includes(index) && index === sections.length - 1);
+                submitBtn.classList.toggle('hidden', !step2Sections.includes(index) || index !== sections.length - 1);
+                printBtn.classList.toggle('hidden', !step2Sections.includes(index) || index !== sections.length - 1);
+            }
+            
+            // Next button
+            nextBtn.addEventListener('click', function() {
+                // Validate current section
+                const currentSectionFields = sections[currentSection].querySelectorAll('[required]');
+                let isValid = true;
+                
+                currentSectionFields.forEach(field => {
+                    if (!field.value) {
+                        isValid = false;
+                        field.classList.add('shake', 'border-red-500');
+                        
+                        // Remove animation class after animation ends
+                        setTimeout(() => {
+                            field.classList.remove('shake');
+                        }, 500);
+                        
+                        // Special handling for photo
+                        if (field.id === 'photo' && !photoPreview.src) {
+                            document.getElementById('photoError').classList.remove('hidden');
+                        }
+                        
+                        // Show error message
+                        const errorMsg = field.nextElementSibling;
+                        if (!errorMsg || !errorMsg.classList.contains('field-error')) {
+                            const errorElement = document.createElement('div');
+                            errorElement.className = 'field-error text-red-500 text-sm mt-1';
+                            errorElement.textContent = 'Ce champ est obligatoire';
+                            field.parentNode.insertBefore(errorElement, field.nextSibling);
+                        }
+                    } else {
+                        field.classList.remove('border-red-500');
+                        // Remove error message if exists
+                        const errorMsg = field.nextElementSibling;
+                        if (errorMsg && errorMsg.classList.contains('field-error')) {
+                            errorMsg.remove();
+                        }
+                    }
+                });
+                
+                if (!isValid) {
+                    alert('Veuillez remplir tous les champs obligatoires marqués d\'un astérisque (*)');
+                }
+                
+                if (isValid) {
+                    currentSection++;
+                    showSection(currentSection);
+                    
+                    // Scroll to top of form
+                    window.scrollTo({
+                        top: document.querySelector('.container').offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+            
+            // Previous button
+            prevBtn.addEventListener('click', function() {
+                currentSection--;
+                showSection(currentSection);
+                
+                // Scroll to top of form
+                window.scrollTo({
+                    top: document.querySelector('.container').offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Form submission
+            document.getElementById('adhesionForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show success message
+                alert('Formulaire soumis avec succès!');
+                
+                // Here you would typically send the form data to a server
+                // For this example, we'll just show the print button
+            });
+            
+            // Validate delivery date is today
+            function validateDeliveryDate() {
+                const deliveryDateInput = document.getElementById('deliveryDate');
+                const errorElement = document.getElementById('deliveryDateError');
+                
+                if (!deliveryDateInput.value) {
+                    errorElement.classList.add('hidden');
+                    return false;
+                }
+                
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                const selectedDate = new Date(deliveryDateInput.value);
+                selectedDate.setHours(0, 0, 0, 0);
+                
+                const isToday = selectedDate.getTime() === today.getTime();
+                
+                if (!isToday) {
+                    deliveryDateInput.classList.add('border-red-500', 'shake');
+                    errorElement.classList.remove('hidden');
+                    setTimeout(() => {
+                        deliveryDateInput.classList.remove('shake');
+                    }, 500);
+                } else {
+                    deliveryDateInput.classList.remove('border-red-500');
+                    errorElement.classList.add('hidden');
+                }
+                
+                return isToday;
+            }
+            
+            // Add validation on date change
+            document.getElementById('deliveryDate').addEventListener('change', validateDeliveryDate);
+            
+            // Print PDF
+            printBtn.addEventListener('click', function() {
+                // Validate delivery date before printing
+                if (!validateDeliveryDate()) {
+                    return;
+                }
+                const element = document.querySelector('.container');
+                const idNumber = document.getElementById('idNumber').value;
+                const opt = {
+                    margin: 10,
+                    filename: `formulaire_adhesion_${idNumber}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+                
+                // Generate PDF
+                html2pdf().from(element).set(opt).save();
+            });
+            
+        });
+    </script>
+</body>
+</html>
